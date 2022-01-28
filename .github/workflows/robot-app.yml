@@ -13,11 +13,11 @@ jobs:
           uses: joonvena/robotframework-docker-action@v0.1
           env:
             BROWSER: chrome
-            ROBOT_TESTS_DIR: $https://github.com/mrlcast/Robot-Framework-Intranet/cadastro
-            ROBOT_REPORTS_DIR: $https://github.com/mrlcast/Robot-Framework-Intranet/reports
+            ROBOT_TESTS_DIR: https://github.com/mrlcast/Robot-Framework-Intranet/cadastro
+            ROBOT_REPORTS_DIR: https://github.com/mrlcast/Robot-Framework-Intranet/reports
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
           with:
             name: reports
-            path: $https://github.com/mrlcast/Robot-Framework-Intranet/reports
+            path: https://github.com/mrlcast/Robot-Framework-Intranet/reports
