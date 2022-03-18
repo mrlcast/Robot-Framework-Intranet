@@ -6,7 +6,7 @@ Library                             FakerLibrary    locale=pt_BR
 *** Variables ***
 ${url}                              https://hom1-intranet.sascar.com.br/sistemaWeb/index.php        #Homologação
 #${url}                             https://desenvolvimento.sascar.com.br/ORGMKTOTVS-4468/          #Desenvolvimento
-#${url}                              https://intranet-hom-wsprotheus.sascar.com.br/intranet-prod/index.php                  #PROTHEUS
+#${url}                             https://intranet-hom-wsprotheus.sascar.com.br/intranet-prod/index.php                  #PROTHEUS
 
 ${contrato}                         Set Variable                                    ${EMPTY}        #Setando contrato
 &{classe}                           nome=TESTE   valorMonit=1   valorServ=2   valorTax=3            #Setando variáveis de classe
@@ -121,6 +121,7 @@ Novo Contrato PF
         Sleep                       5
         Click Element               css=#bt_confirmar
     # Pegar o contrato criado
+        Sleep                       20
         ${contrato}                 Get WebElement                                  css:.tdc > td:nth-child(7)
         Click Element               css=.tdc > td:nth-child(7)
         Evidencia                   contrato.${contrato.text}
@@ -222,23 +223,15 @@ Novo Contrato PJ
 #Keyword que recebe o termo, para confirmar e gerar
 Geração de contrato 
         [Arguments]                 ${termo}
-    # Encerra a sessão da criação do contrato e inicia a dos passos para geração do contrato
-        Encerra Sessão
-        Nova Sessão
-    # Caminho para a tela Pré-cadastro
-        Click Element               xpath=//a[contains(text(),'Principal')]
-        Click Element               xpath=//a[contains(@href, 'pre_cadastro.php')]
-    # Pesquisa pelo termo
-        Input text                  css=#prptermo_pesquisa                          ${termo}  #Variável para o termo
-        Click Element               xpath=//input[@name='pesquisar']
+    # Clica no contrato gerado anteriormente
         Click Element               css=.it_link
     # Gerar contrato
         Switch Window               NEW
         Get Location
-        #Sleep                       5
         Click Element               id=bt_gerar
         Sleep                       5
-        Evidencia                   contratoGerado
+        Evidencia                   termoGerado.${termo}
+        Sleep                       5
         Encerra Sessão
 
 #Keyword que recebe o nome, numero do contrato, nome do acessório, valor e gera aditivo de Hardware
